@@ -1,9 +1,11 @@
 package com.b2c.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.b2c.pojo.TbItem;
 import com.b2c.pojo.TbItemExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TbItemMapper {
     int countByExample(TbItemExample example);

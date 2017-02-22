@@ -17,7 +17,10 @@
     <!-- 通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 传播行为 -->
+            <!-- 传播行为
+            REQUIRED: 如果当前有事务，在事务中执行，没有事物则开启新事物
+            SUPPORTS：如果当前有事务，在事务中执行，没有事务则不开启事物
+             -->
             <tx:method name="save*" propagation="REQUIRED" />
             <tx:method name="insert*" propagation="REQUIRED" />
             <tx:method name="add*" propagation="REQUIRED" />
