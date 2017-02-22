@@ -1,0 +1,10 @@
+/**/target/
+/**/.metadata/
+/**/.settings/
+/**/.classpath
+/**/.project
+/**/classes/
+/**/lib/
+/RemoteSystemsTempFiles
+/.recommenders
+/.metadata
