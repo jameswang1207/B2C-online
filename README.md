@@ -1,4 +1,4 @@
-# 电商行业技术特点
+# 电商行业技术特点(持续跟新中)
 
 * 技术新
 * 技术范围广
@@ -12,7 +12,7 @@
 
 B2c商城是一个综合性的B2C平台，包含各种相关模块，在本项目中只有部分业务，记录在电商项目中遇到的新东西
 
-# 包含技术(持续更新中)
+# 包含技术(持续更新中：侧重后台技术运用)
 
 * Spring、SpringMVC、Mybatis
 * JSP、JSTL、jQuery、jQuery plugin、EasyUI、KindEditor（富文本编辑器）、CSS+DIV
