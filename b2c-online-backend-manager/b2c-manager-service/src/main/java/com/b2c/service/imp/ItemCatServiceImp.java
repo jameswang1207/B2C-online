@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.b2c.commom.EUTreeNode;
 import com.b2c.mapper.TbItemCatMapper;
+import com.b2c.pojo.EUTreeNode;
 import com.b2c.pojo.TbItemCat;
 import com.b2c.pojo.TbItemCatExample;
 import com.b2c.pojo.TbItemCatExample.Criteria;

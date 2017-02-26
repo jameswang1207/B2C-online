@@ -17,6 +17,7 @@ public class TbItem {
 
     private String image;
 
+   //所属类目，叶子类目
     private Long cid;
 
     private Byte status;

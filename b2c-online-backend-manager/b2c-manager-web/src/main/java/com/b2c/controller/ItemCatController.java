@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.b2c.commom.EUTreeNode;
+import com.b2c.pojo.EUTreeNode;
 import com.b2c.service.ItemCatService;
 
 @Controller

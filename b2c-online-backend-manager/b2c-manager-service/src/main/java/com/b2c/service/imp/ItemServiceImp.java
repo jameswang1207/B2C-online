@@ -1,17 +1,21 @@
 package com.b2c.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.b2c.commom.EUDataGridResult;
-import com.b2c.commom.EUTreeNode;
+import com.b2c.exception.SqlInsertException;
+import com.b2c.mapper.TbItemDescMapper;
 import com.b2c.mapper.TbItemMapper;
+import com.b2c.pojo.EUDataGridResult;
 import com.b2c.pojo.TbItem;
+import com.b2c.pojo.TbItemDesc;
 import com.b2c.pojo.TbItemExample;
 import com.b2c.pojo.TbItemExample.Criteria;
 import com.b2c.service.ItemService;
+import com.b2c.util.IDUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -20,6 +24,9 @@ public class ItemServiceImp implements ItemService{
 
     @Autowired
     private TbItemMapper itemMapper;
+    
+    @Autowired
+    private TbItemDescMapper ItemDescMapper;
 
     @Override
     public TbItem getItemById(long id) {
@@ -50,5 +57,32 @@ public class ItemServiceImp implements ItemService{
         result.setTotal(pageInfo.getTotal());
         return result;
     }
+
+    @Override
+    public String createItem(TbItem item, String desc) throws SqlInsertException {
+        long itemId = IDUtils.genItemId();
+        item.setId(itemId);
+        // status three status : 1:正常,2:下架,3:删除
+        item.setStatus((byte)1);
+        item.setCreated(new Date());
+        item.setUpdated(new Date());
+        
+        itemMapper.insert(item);
+        int isSuccess = createItemDesc(itemId, desc);
+        if (isSuccess != 1) {
+            throw new SqlInsertException("insert item desc has exception", 1000);
+        }
+        return "{\"code\":200,\"message\":\"ok\"}";
+    }
+    
+    private int createItemDesc(long itemId, String desc){
+        TbItemDesc itemDesc = new TbItemDesc();
+        itemDesc.setItemId(itemId);
+        itemDesc.setCreated(new Date());
+        itemDesc.setUpdated(new Date());
+        itemDesc.setItemDesc(desc);
+        return ItemDescMapper.insert(itemDesc);
+    }
+    
 
 }
