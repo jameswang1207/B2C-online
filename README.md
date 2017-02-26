@@ -15,7 +15,7 @@ B2c商城是一个综合性的B2C平台，包含各种相关模块，在本项�
 # 包含技术(持续更新中：侧重后台技术运用)
 
 * Spring、SpringMVC、Mybatis
-* JSP、JSTL、jQuery、jQuery plugin、EasyUI、KindEditor（富文本编辑器）、CSS+DIV
+* JSP、JSTL、jQuery、jQuery plugin、EasyUI、KindEditor（富文本编辑器）、CSS+DIV---->没有
 * Redis（缓存服务器）
 * Solr（搜索）
 * httpclient（调用系统服务）

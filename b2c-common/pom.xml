@@ -6,4 +6,58 @@
     <artifactId>b2c-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  
+    <dependencies>
+     <!-- 时间操作组件 -->
+     <dependency>
+         <groupId>joda-time</groupId>
+         <artifactId>joda-time</artifactId>
+     </dependency>
+     <!-- Apache工具组件 -->
+     <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-lang3</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-io</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>commons-net</groupId>
+         <artifactId>commons-net</artifactId>
+     </dependency>
+     <!-- Jackson Json处理工具包 -->
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
+     <!-- httpclient -->
+     <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+     </dependency>
+    <dependency>
+       <groupId>junit</groupId>
+       <artifactId>junit</artifactId>
+       <scope>test</scope>
+    </dependency>
+    <dependency>
+       <groupId>org.slf4j</groupId>
+       <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>javax.servlet</groupId>
+       <artifactId>servlet-api</artifactId>
+       <scope>provided</scope>
+    </dependency>
+    <dependency>
+       <groupId>javax.servlet</groupId>
+       <artifactId>jsp-api</artifactId>
+       <scope>provided</scope>
+    </dependency>
+  </dependencies>
 </project>

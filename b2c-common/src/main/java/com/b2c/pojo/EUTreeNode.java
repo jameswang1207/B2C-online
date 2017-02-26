@@ -1,4 +1,4 @@
-package com.b2c.commom;
+package com.b2c.pojo;
 
 public class EUTreeNode {
     private long id;
