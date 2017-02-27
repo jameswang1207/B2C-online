@@ -21,7 +21,8 @@
 * 解压：(baidu search install method......)
 
 ## ftp 安装　
-*　http://jingyan.baidu.com/article/7908e85c988b23af481ad2ae.html
+
+* http://jingyan.baidu.com/article/7908e85c988b23af481ad2ae.html
 * http://blog.csdn.net/duomoke/article/details/30263483
 
 ## 商品信息和商品描述分开存储，因为商品描述是大文本信息
