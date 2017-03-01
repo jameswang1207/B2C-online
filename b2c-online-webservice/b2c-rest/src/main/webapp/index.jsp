@@ -5,6 +5,6 @@
     <title>B2C-FRONTEND</title>
 </head>
 <body>
-    this is front end page
+    this is front enddddd page
 </body>
 </html>
