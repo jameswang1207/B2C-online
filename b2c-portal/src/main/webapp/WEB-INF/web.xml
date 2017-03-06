@@ -63,4 +63,9 @@
         <servlet-name>b2c-portal</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
+    <!-- 当遇到406时,springmvc遇到html后缀的请求时需要返回html格式的页面，没法将对象转化为html，因此报406错 -->
+    <servlet-mapping>
+        <servlet-name>b2c-portal</servlet-name>
+        <url-pattern>*.api</url-pattern>
+    </servlet-mapping>
 </web-app>

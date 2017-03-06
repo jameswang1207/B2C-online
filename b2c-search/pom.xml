@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.b2c</groupId>
+    <artifactId>b2c-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>b2c-search</artifactId>
+  <packaging>war</packaging>
+  <dependencies>
+    <dependency>
+       <groupId>com.b2c</groupId>
+       <artifactId>b2c-common</artifactId>
+       <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- Spring -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.solr</groupId>
+        <artifactId>solr-solrj</artifactId>
+    </dependency>
+    <!-- Mybatis -->
+     <dependency>
+         <groupId>org.mybatis</groupId>
+         <artifactId>mybatis</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.mybatis</groupId>
+         <artifactId>mybatis-spring</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>com.github.miemiedev</groupId>
+         <artifactId>mybatis-paginator</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>com.github.pagehelper</groupId>
+         <artifactId>pagehelper</artifactId>
+     </dependency>
+     <!-- MySql -->
+     <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+     </dependency>
+     <!-- 连接池 -->
+     <dependency>
+         <groupId>com.alibaba</groupId>
+         <artifactId>druid</artifactId>
+     </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- 配置Tomcat插件 -->
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <configuration>
+           <port>8083</port>
+           <path>/</path>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
