@@ -1,4 +1,4 @@
-package com.ftp;
+package com.b2c.util;
 
 import java.io.File;
 import java.io.FileInputStream;

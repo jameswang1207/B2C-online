@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.b2c.rest.pojo.CatResult;
 import com.b2c.rest.service.ItemCatService;
 import com.b2c.util.JsonUtils;

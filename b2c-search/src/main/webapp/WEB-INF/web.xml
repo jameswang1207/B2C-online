@@ -3,7 +3,7 @@
     xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     id="b2c" version="2.5">
-    <display-name>b2c-portal</display-name>
+    <display-name>b2c-search</display-name>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.htm</welcome-file>
@@ -49,7 +49,7 @@
     </filter-mapping>
     <!-- springmvc的前端控制器 -->
     <servlet>
-        <servlet-name>b2c-portal</servlet-name>
+        <servlet-name>b2c-search</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
         <init-param>
@@ -58,14 +58,9 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!-- 伪静态化 -->
+    
     <servlet-mapping>
-        <servlet-name>b2c-portal</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <!-- 当遇到406时,springmvc遇到html后缀的请求时需要返回html格式的页面，没法将对象转化为html，因此报406错 -->
-    <servlet-mapping>
-        <servlet-name>b2c-portal</servlet-name>
-        <url-pattern>*.api</url-pattern>
+        <servlet-name>b2c-search</servlet-name>
+        <url-pattern>/search/*</url-pattern>
     </servlet-mapping>
 </web-app>
