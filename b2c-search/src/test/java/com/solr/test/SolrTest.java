@@ -6,7 +6,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.junit.Test;
 
 public class SolrTest {
-    @Test
+   /* @Test
     public void insertDoc() throws Exception{
         SolrServer server = new HttpSolrServer("192.168.222.115:8080/solr/");
         SolrInputDocument document = new SolrInputDocument();
@@ -21,5 +21,5 @@ public class SolrTest {
         SolrServer server = new HttpSolrServer("192.168.222.115:8080/solr/");
         server.deleteByQuery("*:");
         server.commit();
-    }
+    }*/
 }
