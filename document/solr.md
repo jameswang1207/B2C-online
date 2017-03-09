@@ -21,10 +21,13 @@
     start.jar：启动jar包。通过Java命令就可以启动一个基于jetty服务器的web工程
 
 3.Solr整合tomcat
-* 将 solr 压缩包中 ${solr_home}/server/solr-webapp文件夹下有个webapp文件夹，将之复制到Tomcat\webapps\目录下，并改成solr (名字随意，通过浏览器进行访问solr管理界面时要用到）
-* 将solr压缩包中 ${solr_home}/server/lib/ext中的jar全部复制到 Tomcat\ webapps\solr\WEB-INF\lib 目录中
-* 将 solr 压缩包中 ${solr_home}/server/resources/log4j.properties 复制到Tomcat\ webapps\solr\WEB-INF\classes目录中（如果没有classes则创建）
-* 将 solr 压缩包中 solr-5.4.0/server/solr 目录复制到计算机某个目录下
+* 在任意的目录下新建目录solr-home 如：(/home/james/solr-home)
+* ${solr_home}/server/solr-webapp文件夹下有个webapp文件夹，将之复制到新建的目录下(/home/james/solr-home)
+* ${solr_home}/server/lib/ext中的jar | ${solr_home}/dist中的jar全部复制到/home/james/solr-home/WEB-INF/lib 目录中
+* ${solr_home}/server/resources/log4j.properties 复制到/home/james/solr-home/WEB-INF/classes目录中（如果没有classes则创建）
+* /home/james/solr-home/WEB-INF创建solr_home文件夹，并将${solr_home}/example/example-DIH/solr/solr.xml拷贝到/home/james/solr-home/WEB-INF/solr_home/下
+* /home/james/solr-home/WEB-INF/solr_home/下新建new_core文件夹，并将${solr_home}/server/solr/configsets/basic_configs/conf拷贝到该目录下
+
 * 打开Tomcat/webapps/solr/WEB-INF下的web.xml，找到如下配置内容（初始状态下该内容是被注释掉的）：
 
 ```xml
@@ -34,12 +37,48 @@
     <env-entry-type>java.lang.String</env-entry-type>
 </env-entry>
 ```
-* 打开Tomcat/webapps/solr/WEB-INF下的web.xml修改项目欢迎页面
+
+* 设置tomcat的server.xml文件，在Host标签最后添加
 
 ```xml
-  <welcome-file-list>
-    <welcome-file>./index.html</welcome-file>
-  </welcome-file-list>
+    <Context docBase="/home/james/solr-home" path="/solr" reloadable="true"/>
 ```
-* 还需要添加solr-dataimporthandler-5.4.0.jar和solr-dataimporthandler-extras-5.4.0.jar这2个jar包到目录/usr/local/tomcat/tomcat-8.0.30/webapps/solr/WEB-INF/lib/下，否则会报错，这2个包默认不在webapp里，在下载包的dist目录下
-* 保存关闭，而后启动tomcat，在浏览器输入http://localhost:8080/solr即可出现Solr的管理界面
+
+* 保存关闭，而后启动tomcat，在浏览器输入http://localhost:8080/solr/index.html即可出现Solr的管理界面
+* solr install is success.
+
+4.中文分析器的配置
+* 需要把分析器的jar包添加到solr工程中(ik-analyzer-solr5-5.x.jar)
+* 需要把IKAnalyzer需要的扩展词典及停用词词典、配置文件复制到/home/james/solr-home/WEB-INF/classes中(ext.dic | IKAnalyzer.cfg.xml stopword.dic)
+* 配置fieldType。需要在/home/james/solr-home/WEB-INF/solr_home/new_core/conf/managed-schema中配置
+
+```xml
+<fieldType name="text_ik" class="solr.TextField">
+  <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+</fieldType>
+```
+* 业务字段配置(managed-schema)
+  业务字段判断标准：
+  1.在搜索时是否需要在此字段上进行搜索。例如：商品名称、商品的卖点、商品的描述
+  2.后续的业务是否需要用到此字段。例如：商品id
+
+  * filed
+  1.filed定义包括name,type（为之前定义过的各种FieldType）,indexed（是否被索引）,stored（是否被储存），multiValued（是否有多个值）等等
+  2.field的定义相当重要，有几个技巧需注意一下，对可能存在多值的字段尽量设置multiValued属性为true，避免建索引是抛出错误；如果不需要存储相应字段值，尽量将stored属性设为false
+
+  *copyField
+  1.建议建立了一个拷贝字段，将所有的全文字段复制到一个字段中，以便进行统一的检索
+
+```xml
+    <field name="item_title" type="text_ik" indexed="true" stored="true"/>
+    <field name="item_sell_point" type="text_ik" indexed="true" stored="true"/>
+    <field name="item_price"  type="long" indexed="true" stored="true"/>
+    <field name="item_image" type="string" indexed="false" stored="true" />
+    <field name="item_category_name" type="string" indexed="true" stored="true" />
+    <field name="item_desc" type="text_ik" indexed="true" stored="false" />
+    <field name="item_keywords" type="text_ik" indexed="true" stored="false" multiValued="true"/>
+    <copyField source="item_title" dest="item_keywords"/>
+    <copyField source="item_sell_point" dest="item_keywords"/>
+    <copyField source="item_category_name" dest="item_keywords"/>
+    <copyField source="item_desc" dest="item_keywords"/>
+```
