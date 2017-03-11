@@ -1,4 +1,4 @@
-# 相关技术点记录（ubuntu14.04）
+# 相关技术点记录（ubuntu14.04）(192.168.222.114)
 
 ## ftp service install
 
