@@ -126,3 +126,80 @@ zookeeper3/
 8.启动zookeeper：./zkServer.sh start
 9.关闭：./zkServer.sh stop
 10.查看状态：./zkServer.sh status
+
+###Solr实例的搭建(192.168.222.115)
+1.mkdir /home/james/solrCloud(将单机版的solr-home中的内容拷贝到每个tomcat下的webapps/solr文件夹中)
+1.tomcat 端口规划：(端口号注意坑)
+  * tomcat1 : 8005 8081 7001(server.xml)
+  * tomcat2 : 8006 8082 7002(server.xml)
+  * tomcat3 : 8007 8083 7003(server.xml)
+  * tomcat4 : 8008 8084 7004(server.xml)
+
+###solr集群的搭建
+1.把solrhome中的配置文件上传到zookeeper集群。使用zookeeper的客户端上传。
+  * 客户端命令位置：${solr_home}/server/scripts/cloud-scripts
+  ```sh
+   ./zkcli.sh -zkhost 192.168.222.118:2181,192.168.222.118:2182,192.168.222.118:2183 -cmd upconfig -confdir /home/james/solr-home/WEB-INF/solr_home/new_core/conf -confname myconf
+  ```
+  * 查看配置文件是否上传成功：(./zkCli.sh)
+  ```sh
+      zkCli.sh
+      ls /
+      ls /configs
+      ls /configs/myconf
+  ```
+  * 修改tomcat{1|2|3|4}/webapps/solr/WEB-INF/solr_home下的solr.xml文件，指定当前实例运行的ip地址及端口号(前两行)
+  * tomcat{1|2|3|4}/webapps/solr/solr.xml(两个文件内容相同)
+
+  ```xml
+  <solr>
+    <solrcloud>
+      <str name="host">${host:192.168.222.115}</str>
+      <int name="hostPort">${jetty.port:8983}</int>
+      <str name="hostContext">${hostContext:solr}</str>
+      <bool name="genericCoreNodeNames">${genericCoreNodeNames:true}</bool>
+      <int name="zkClientTimeout">ls
+      ${zkClientTimeout:30000}</int>
+      <int name="distribUpdateSoTimeout">${distribUpdateSoTimeout:600000}</int>
+      <int name="distribUpdateConnTimeout">${distribUpdateConnTimeout:60000}</int>
+      <str name="zkCredentialsProvider">${zkCredentialsProvider:org.apache.solr.common.cloud.DefaultZkCredentialsProvider}</str>
+      <str name="zkACLProvider">${zkACLProvider:org.apache.solr.common.cloud.DefaultZkACLProvider}</str>
+    </solrcloud>
+
+    <shardHandlerFactory name="shardHandlerFactory"
+      class="HttpShardHandlerFactory">
+      <int name="socketTimeout">${socketTimeout:600000}</int>
+      <int name="connTimeout">${connTimeout:60000}</int>
+    </shardHandlerFactory>
+  </solr>
+  ```
+
+  * 修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址：可以使用vim的查找功能查找到JAVA_OPTS的定义的位置，然后添加
+
+   ```sh
+      JAVA_OPTS="-DzkHost=192.168.222.118:2181,192.168.222.118:2182,192.168.222.118:2183"
+   ```
+  * 重新启动tomcat
+
+2.创建一个两片的new_core每片是一主一备。
+
+ 使用以下命令创建：
+ new_core1: 新的名字
+ ```sh
+    http://192.168.222.115:8081/solr/admin/collections?action=CREATE&name=new_core1&numShards=2&replicationFactor=2
+ ```
+
+3.删除new_core.
+```sh
+    http://192.168.222.115:8080/solr/admin/collections?action=DELETE&name=new_core
+```
+4.注意(在集群版时，各自配置自己的web.xml)
+
+```xml
+<env-entry>
+    <env-entry-name>solr/home</env-entry-name>
+    <env-entry-value>/opt/solr</env-entry-value>
+    <env-entry-type>java.lang.String</env-entry-type>
+</env-entry>
+```
+
