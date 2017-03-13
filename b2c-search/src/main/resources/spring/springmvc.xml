@@ -8,9 +8,20 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="com.search.web" />
     <mvc:annotation-driven />
+
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+    
+    
+    <bean id="keyWorddInterceptor" class="com.search.interceptor.KeyWorddFilter"/>
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+               <ref bean="keyWorddInterceptor"/>
+            </list>
+        </property>
     </bean>
 </beans>
