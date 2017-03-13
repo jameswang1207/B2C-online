@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.druid.util.StringUtils;
 import com.search.dao.SearchDao;
 import com.search.pojo.Item;
 import com.search.pojo.SearchResult;
@@ -20,7 +21,7 @@ import com.search.pojo.SearchResult;
 public class SearchDaoImp implements SearchDao{
 
     @Autowired
-    private SolrServer solrServer;
+    private SolrClient solrServer;
     
     @Override
     public SearchResult search(SolrQuery query) throws Exception {
@@ -51,7 +52,10 @@ public class SearchDaoImp implements SearchDao{
             item.setTitle(title);
             
             item.setImage((String) doc.get("item_image"));
-            item.setPrice((long) doc.get("item_price"));
+            
+            if (doc.containsKey("item_price")) {
+                item.setPrice((long) doc.get("item_price"));
+            }
             item.setSellPoint((String) doc.get("item_sell_point"));
             item.setCategoryName((String) doc.get("item_category_name"));
             itemList.add(item);
