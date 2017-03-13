@@ -2,7 +2,7 @@ package com.search.service.imp;
 
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ItemServiceImpl implements ItemService{
     private ItemMapper itemMapper;
     
     @Autowired
-    private SolrServer solrServer;
+    private SolrClient solrServer;
     
     @Override
     public B2cResult importAllItems() {
