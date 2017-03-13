@@ -24,15 +24,15 @@
     </listener>
     <!-- log4j -->
     <context-param>
-       <param-name>log4jConfigLocation</param-name>
-       <param-value>classpath:log/log4j.properties</param-value>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log/log4j.properties</param-value>
     </context-param>
     <context-param>
-       <param-name>log4jRefreshInterval</param-name>
-       <param-value>6000</param-value>
+        <param-name>log4jRefreshInterval</param-name>
+        <param-value>6000</param-value>
     </context-param>
-     <listener>
-       <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+   <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
     <!-- 解决post乱码 -->
     <filter>
