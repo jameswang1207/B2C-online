@@ -14,6 +14,7 @@ import com.search.pojo.SearchResult;
 import com.search.service.SearchService;
 
 @Controller
+@RequestMapping("/solr")
 public class SearchController {
     @Autowired
     private SearchService searchService;
@@ -23,7 +24,6 @@ public class SearchController {
     public B2cResult search(@RequestParam("q") String queryString, 
             @RequestParam(value="page", defaultValue="1") Integer page, 
             @RequestParam(value="rows", defaultValue="60") Integer rows) {
-        System.out.println("===================");
         //查询条件不能为空
         if (StringUtils.isEmpty(queryString)) {
             return B2cResult.build(400, "查询条件不能为空");

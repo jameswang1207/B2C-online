@@ -15,13 +15,10 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    
-    <bean id="keyWorddInterceptor" class="com.search.interceptor.KeyWorddFilter"/>
-    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
-        <property name="interceptors">
-            <list>
-               <ref bean="keyWorddInterceptor"/>
-            </list>
-        </property>
-    </bean>
+    <mvc:interceptors>
+       <mvc:interceptor>
+           <mvc:mapping path="/solr/**"/>
+           <bean class="com.search.interceptor.KeyWorddFilter"></bean>
+       </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
