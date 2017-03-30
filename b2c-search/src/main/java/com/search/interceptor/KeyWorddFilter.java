@@ -33,7 +33,6 @@ public class KeyWorddFilter implements HandlerInterceptor{
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
-        System.out.println("preHandle");
         String url = getBaseURL(request);
         System.out.println(url);
         return true;
