@@ -82,7 +82,6 @@ public class B2cResult {
     /*
      * 
      * @param jsonData json数据
-     * @param clazz TaotaoResult中的object类型
      * @return
      */
     public static B2cResult formatToPojo(String jsonData, Class<?> clazz) {
